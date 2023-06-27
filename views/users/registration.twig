@@ -1,0 +1,21 @@
+{% extends "./layouts/app.twig" %}
+
+{% block body %}
+
+	<div class="container-form max-w-lg mx-auto">
+		<h1 class="text-5xl my-12 text-bit-light-gray">Register a new account</h1>
+		<form method="post" class="flex flex-col">
+			<input type="text" required name="username" id="username" placeholder="username" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="password" required name="password" id="password" placeholder="password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="password" required name="password2" id="password2" placeholder="confirm password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			{% if session.errors.register.0 != '' %}
+				<div class="justify-center bg-red-300 text-red-700 rounded-md w-fit mx-auto py-3 px-5 mt-3">
+					{{  session.errors.register.0  }}
+				</div>
+			{% endif %}
+			<button class="mt-5 nopfont-semibold text-lg rounded-md py-1 px-3.5 bg-bit-light-gray  text-bit-light-puple">register</button>
+			<a class="text-bit-light-gray font-semibold text-lg" href="./login">or login here
+			</a>
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/public/style.css">
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<title>binsta</title>
+	</head>
+
+	<body class="bg-bit-bg-gray">
+		{% if session.id is empty %}
+			<!-- logout header -->
+			<header class="bg-bit-gray mb-2.5 h-20 flex items-center justify-between flex-row ">
+				<h1 class="mx-4 font-extrabold text-white text-xl">binsta</h1>
+				<div class=" flex flex-row p-6 items-center">
+					<a class="text-white px-4" href="../user/login">login</a>
+					<a class="text-white  " href="../user/register">
+						register</a>
+				</div>
+			</header>
+		{% else %}
+			<!-- login header -->
+			<header class="bg-bit-gray h-20 flex items-center justify-between flex-row ">
+				<h1 class="mx-4 font-extrabold text-white text-xl">binsta</h1>
+				<div>
+					<a class="text-white mr-1 " href="../post">post</a>
+					<a class="text-white ml-1" href="../post/user">user</a>
+				</div>
+
+				<div class=" flex flex-row p-6 items-center">
+					<a class="mx-3" href="../post/addpost"><img src="../../public/media/plus.svg" alt="add post"></a>
+					<a href="../user/profile&id={{session.id}} "><img class="h-12 w-12 rounded-full" src="../../public/media/{{pfp}}" alt=""></a>
+					<form class="flex flex-row " method="post">
+						<p class="text-white m-3">welkom
+							{{session.name}}
+						</p>
+						<input class="text-white" type="submit" value="logout" name="logoutPost">
+					</form>
+				</div>
+			</header>
+		{% endif %}
+
+		{% block body %}{% endblock %}
+
+	</body>
+
+</html>

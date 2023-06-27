@@ -1,0 +1,21 @@
+{
+    "name": "timoj/binsta",
+    "require": {
+        "twig/twig": "3.5"
+    },
+    "authors": [
+        {
+            "name": "timo zuidinga",
+            "email": "tzuidinga@st.noorderpoort.nl"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "helpers.php",
+            "rb.php"
+        ],
+        "classmap": [
+            "controllers/"
+        ]
+    }
+}

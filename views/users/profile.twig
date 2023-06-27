@@ -1,0 +1,100 @@
+{% extends "./layouts/app.twig" %}
+{% block body%}
+
+<div class=" mt-7  flex justify-center">
+	<div class="flex w-4/6  items-center flex-row">
+		<img class="h-36 w-36 mr-16  rounded-full object-cover object-center"
+			src="../../public/media/{{profile_user.profilepic}}" alt="">
+		<div>
+			<p class="font-semibold pb-4 text-4xl">{{profile_user.username}}</p>
+			<p class="font-medium max-w-xl">{{profile_user.biograph}}</p>
+		</div>
+
+	</div>
+	<div class="flex justify-center  items-center  ">
+		{% if get.id == session.id %}
+		<a class="font-semibold text-lg rounded-md py-1 px-3.5 mr-4  bg-bit-gray  text-white"
+			href="../post/addpost">Create post</a>
+		<a class="font-semibold text-lg rounded-md py-1 px-3.5 bg-bit-gray  text-white"
+			href="../user/setting">settings</a>
+		{% endif %}
+	</div>
+</div>
+<div class="mt-10 ">
+	<ul role="list" class="my-5 pl-28 grid grid-cols-3 gap-x-3 "
+		data-masonry='{ "itemSelector": ".grid-item" ,"layoutMode":"fitRow" }'>
+		{% for item in allpost %}
+		<li
+			class="grid-item w-[28%] mb-10 top-10 mx-2.5  gap-y-4 flex flex-col divide-x divide-gray-200 rounded-lg mt-4 bg-white shadow-md">
+			<div class="flex flex-1 flex-col break-inside-avoid p-6">
+				<a href="../user/profile&id={{item.user_id}}" class="flex items-center-center ">
+					<img class="rounded-full w-10 h-10 mr-8 mb-2"
+						src="../../public/media/{{ item.__get('user').profilepic}}" alt="">
+					<span class="pt-2 font-semibold text-lg ">
+						{{ item.__get('user').username }}
+					</span>
+				</a>
+				<pre><code class="language-{{item.language}}">{{item.code_snippet}}</code></pre>
+				<div class="flex">
+					<p class="font-semibold mr-1">
+						{{ item.__get('user').username }}:
+					</p>
+					<p class="text-bit-light-gray">
+						{{ item.discript}}</p>
+					</p>
+				</div>
+				<div>
+					{% for com in comments %}
+					<div class="flex">
+						{% if com.post_id == item.id %}
+						<p class=" font-semibold  mr-1">{{com.__get('user').username}}:
+						</p>
+						<p class="text-bit-light-gray">
+							{{com.comment}}</p>
+
+						{% endif %}
+					</div>
+					{% endfor %}
+					<div class="text-center">
+						<div>
+							{% set postLikes = item.__get('ownLikeList') %}
+							{% set isLiked = session ? postLikes|filter(like => like.user_id == session.id)|length > 0 :
+							false %}
+							<form action="/post/liked" method="POST">
+								<input type="hidden" name="id" value="{{ item.id }}">
+								<div class="flex justify-center">
+									<button type="submit">{{ isLiked ? "<img class='w-7'
+											src='../../public/media/like.svg'>" : "<img class='w-7'
+											src='../../public/media/unlike.svg'>" }}</button>
+									<i>
+										{{ postLikes|length }}
+										like{{ postLikes|length != 1 ? 's' : '' }}
+									</i>
+								</div>
+							</form>
+						</div>
+						<form method="post" action="/post/comment">
+							<input type="text" required name="comment" placeholder="post an comment">
+							<input type="submit" name="submit_comment" value="post">
+							<input type="hidden" name="hidden" value="{{item.id}}">
+						</form>
+					</div>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>$('.grid').isotope({
+		itemSelector: '.grid-item',
+		percentPosition: true,
+		masonry: {
+			columnWidth: 90,
+			horizontalOrder: true,
+			rowHeight: 110
+		}
+	});</script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<script>hljs.highlightAll();</script>{% endblock %}

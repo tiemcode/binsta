@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.grid-item {
+    border: 2px solid hsla(0, 0%, 0%, 0.5);
+}

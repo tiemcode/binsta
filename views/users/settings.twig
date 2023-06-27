@@ -1,0 +1,43 @@
+{% extends "./layouts/app.twig" %}
+
+{% block body %}
+
+	<div class="container-form max-w-lg mx-auto">
+		<h1 class="text-5xl my-6">edit your account</h1>
+		<!-- username -->
+		<form method="post" id="username" class="flex flex-col">
+			<h2 class="text-2xl ">change your username</h2>
+			<input type="text" required name="username" id="username" placeholder="{{user_change.username}}" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="password" required name="password_username" id="password" placeholder="password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="submit" value="change username" name="submit_username" class="my-1 nopfont-semibold text-lg rounded-md py-1 px-3.5 bg-bit-gray  text-white">
+		</form>
+		<!-- biograph -->
+		<form method="post" id="bio" class="flex flex-col mt-4">
+			<h2 class="text-2xl ">change your bio</h2>
+			<textarea name="bio" required id="bio" cols="20" rows="5" placeholder="{{user_change.biograph}}" class="py-3 px-5 my-1 shadow-md rounded-md"></textarea>
+			<input type="password" required name="password_bio" id="password" placeholder="password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="submit" name="submit_bio" class="my-1 nopfont-semibold text-lg rounded-md py-1 px-3.5 bg-bit-gray  text-white" value="change bio">
+		</form>
+		<!-- password -->
+		<form method="post" id="password" class="flex flex-col mt-4">
+			<h2 class="text-2xl ">change your password</h2>
+			<input type="password" required name="password-old" id="password" placeholder="old password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="password" required name="password-new" id="password" placeholder="new password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="password" required name="password-new2" id="password" placeholder="repeat new password" class="py-3 px-5 my-1 shadow-md rounded-md">
+			<input type="submit" name="submit_password" class="my-1 nopfont-semibold text-lg rounded-md py-1 px-3.5 bg-bit-gray  text-white" value="change password">
+		</form>
+		<!-- profile photo -->
+		<form id="photo" method="post" enctype='multipart/form-data'>
+			<h2 class="text-2xl ">change your profile photo</h2>
+			<input type="file" name="pfp-photo" id="">
+			<input type="submit" class="my-1 nopfont-semibold text-lg rounded-md py-1 px-3.5 bg-bit-gray  text-white" name="submit_pic" value="change profile photo">
+		</form>
+
+	</div>
+	{% if session.error.pfp != '' %}
+		<div class="justify-center bg-red-300 text-red-700 rounded-md w-fit mx-auto py-3 px-5 mt-3">
+			{{  session.error.pfp  }}
+		</div>
+	{% endif %}
+
+{% endblock %}
